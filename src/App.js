@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import EventListBox from './EventListBox';
 import './App.css';
 import {connect} from 'react-redux';
 import {getAllEvents} from './actions/actions';
 import {bindActionCreators} from 'redux';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import EventsPage from "./EventListing/EventsPage";
+import CreatePage from "./EventCreation/CreatePage";
+
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
@@ -20,16 +23,18 @@ class ConnectedApp extends Component {
     constructor(props) {
         super(props);
         this.state = { events: [{ name: 123, type: "ahlan" }] };
-        this.props.getAllEvents()
+        this.props.getAllEvents();
     }
 
     render() {
         return (
-            <div className='app'>
-                <div className='container'>
-                    <EventListBox/>
-                </div>
-            </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={EventsPage}/>
+                    <Route path='/create' component={CreatePage}/>
+                    {/*<Route path='/event/:eventid' component={SingleEvent}/>*/}
+                </Switch>
+            </BrowserRouter>
         );
     }
 

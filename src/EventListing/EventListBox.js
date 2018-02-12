@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import EventBox from './EventBox'
 import {Connect} from 'react-redux'
-import {getAllEvents} from './actions/actions'
+import {getAllEvents} from '../actions/actions'
 import {bindActionCreators} from 'redux'
 import { connect } from "react-redux";
 
@@ -46,10 +46,12 @@ class EventListBox extends Component{
         }
         return(
             <div className='row'>
+                <div className='col m12'>
                 {this.state.events.map((city, index) =>
                     //console.log(city)
                     <EventBox key={city._id} id={city._id} name={city.name}/>
                 )}
+                </div>
             </div>
         )
     }
