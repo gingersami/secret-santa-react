@@ -23,7 +23,7 @@ class EventBox extends Component{
         return(
             <div className='col m6'>
                 <div className='card-content'>
-                    <span className='card-title grey-text text-darken-4'>{this.state.weather}</span>
+                    {/*<span className='card-title grey-text text-darken-4'>{this.state.name}</span>*/}
                     <img className='activator' src='#'/>
                 </div>
             </div>
@@ -31,4 +31,4 @@ class EventBox extends Component{
     }
 }
 
-export default EventBox
+export default connect(mapStateToProps, mapDispatchToProps)(EventBox);

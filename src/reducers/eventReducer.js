@@ -17,7 +17,7 @@ const eventReducer = (state=[], action) =>{
             return state.filter(({_id})=>_id !== action.payload)
         }
         case 'ADD_PREFS':{
-        let found = state.find(({_id})=>_id == action.payload._id)
+        let found = state.find(({_id})=>_id === action.payload._id)
         found.prefs.push(action.payload.prefs);
         console.log(found)
         return[...state]

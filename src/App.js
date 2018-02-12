@@ -1,58 +1,57 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import EventListBox from './EventListBox';
 import './App.css';
-import { connect } from 'react-redux'
-import { getAllEvents } from './actions/actions'
-import { bindActionCreators } from 'redux'
-import EventListBox from './EventListBox'
+import {connect} from 'react-redux';
+import {getAllEvents} from './actions/actions';
+import {bindActionCreators} from 'redux';
 
 const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        getAllEvents
+    }, dispatch);
+};
 
-  return bindActionCreators({
-    getAllEvents
-  }, dispatch);
-}
 
 const mapStateToProps = state => {
-  return { reduxEvents: state.events }
+    return { reduxEvents: state.events };
+};
+
+class ConnectedApp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { events: [{ name: 123, type: "ahlan" }] };
+        this.props.getAllEvents()
+    }
+
+    render() {
+        return (
+            <div className='app'>
+                <div className='container'>
+                    <EventListBox/>
+                </div>
+            </div>
+        );
+    }
+
 }
 
-class connectedApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { events: [] };
-  }
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectedApp);
 
-  render() {
-    return (
-      <div className='app'>
-        <div className='container'>
-        <EventListBox/>
-        </div>
-      </div>
-    )
-  }
+// export default ConnectedApp;
+//
 
-}
+// addEvent = (events)=>{
+//   this.state({events:events})
+// }
 
-export default connectedApp;
-
-
-
-
-
-
-  // addEvent = (events)=>{
-  //   this.state({events:events})
-  // }
-
-  // _getIndexByid = (id) =>{
-  //   let {cities} = this.state
-  //   for(let i=0;i< cities.length;i++){
-  //     if(cities[i]._id === id){
-  //       return i
-  //     }
-  //   }
-  // }
+// _getIndexByid = (id) =>{
+//   let {cities} = this.state
+//   for(let i=0;i< cities.length;i++){
+//     if(cities[i]._id === id){
+//       return i
+//     }
+//   }
+// }
 
 //   deleteCity=(id)=>{
 //     let index = this._getIndexByid(ids.eventId);

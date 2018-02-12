@@ -3,6 +3,8 @@ import EventBox from './EventBox'
 import {Connect} from 'react-redux'
 import {getAllEvents} from './actions/actions'
 import {bindActionCreators} from 'redux'
+import { connect } from "react-redux";
+
 
 const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
@@ -27,6 +29,7 @@ class eventObj{
 class EventListBox extends Component{
     constructor(props){
         super(props)
+        this.state={events:[]}
     }
     componentWillReceiveProps(newProps){
         this.setState({events:newProps.reduxEvents})
@@ -38,16 +41,21 @@ class EventListBox extends Component{
             })
     }
     render(){
-        // if(!this.state.events){
-        //     return(<div>Nothing Here...</div>)
-        // }
+        if(!this.state.events){
+            return(<div>Nothing Here...</div>)
+        }
         return(
             <div className='row'>
-            Hello
-                {/* {this.mapEvents()} */}
+                {this.state.events.map((city, index) =>
+                    //console.log(city)
+                    <EventBox key={city._id} id={city._id} name={city.name}/>
+                )}
             </div>
         )
     }
 }
 
-export default EventListBox
+export default connect(mapStateToProps, mapDispatchToProps)(EventListBox);
+// {this.states.events.map((event)=>{
+//     <EventBox key={event._id} id={event._id} name={event.name}/>
+// })}
